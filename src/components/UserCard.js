@@ -29,7 +29,7 @@ class UserCard extends React.Component {
 
     componentDidMount() {
         axios
-        .get('https://api.github.com/users/drewgoenner/followers')
+        .get(`https://api.github.com/users/${this.props.user.login}/followers`)
         .then(res => this.setState({followers: res.data}))
         .catch(err => console.log(err))
     }
@@ -40,7 +40,6 @@ class UserCard extends React.Component {
         {this.props.user.map(newUser => (
             <div key = {newUser.id}>
             <MainCard>
-                <h1>Github User:</h1>
             <Card
             href={`https://github.com/${newUser.login}`}
             image={newUser.avatar_url}
@@ -55,7 +54,7 @@ class UserCard extends React.Component {
             
         ))}
        
-       <h1>Andrew's Followers</h1>
+       <h1> Followers:</h1>
        <Grid centered columns={3}>
             <Grid.Row padded='vertically' columns={3}>
         {this.state.followers.map(newFollower => (
