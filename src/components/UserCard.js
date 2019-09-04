@@ -23,13 +23,16 @@ class UserCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            followers: []
+            followers: [],
+            // followersText: this.props.user.login
         }
+        
     }
 
     componentDidMount() {
+        console.log(this.props.user.login)
         axios
-        .get(`https://api.github.com/users/${this.props.user.login}/followers`)
+        .get(`https://api.github.com/users/drewgoenner/followers`)
         .then(res => this.setState({followers: res.data}))
         .catch(err => console.log(err))
     }
@@ -57,15 +60,15 @@ class UserCard extends React.Component {
        <h1> Followers:</h1>
        <Grid centered columns={3}>
             <Grid.Row padded='vertically' columns={3}>
-        {this.state.followers.map(newFollower => (
-            <div key={newFollower.id}>
-                <FollowerCard>
-             <Card
-             href={`https://github.com/${newFollower.login}`}
-             image={newFollower.avatar_url}
-             header={newFollower.login}
-             />
-                </FollowerCard>
+                {this.state.followers.map(newFollower => (
+                <div key={newFollower.id}>
+                    <FollowerCard>
+                        <Card
+                            href={`https://github.com/${newFollower.login}`}
+                            image={newFollower.avatar_url}
+                            header={newFollower.login}
+                    />
+                    </FollowerCard>
             </div>
 
         ))}
